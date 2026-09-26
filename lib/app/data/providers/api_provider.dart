@@ -38,7 +38,7 @@ class ApiProvider extends GetxService {
         queryParameters: {
           'q': 'example',
           'lang': 'en',
-          'country': 'us',
+          'country': 'kh',
           'max': 20,
           'apikey': kApiKey,
         },
