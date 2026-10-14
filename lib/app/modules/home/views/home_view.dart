@@ -7,40 +7,69 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
 
+  void changeTheme() {
+    Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+  }
+
+  void chooseLanguage() {
+    Get.defaultDialog(
+      title: 'choose_language'.tr,
+      content: Column(
+        children: [
+          ListTile(
+            title: Text('english'.tr),
+            onTap: () {
+              Get.updateLocale(const Locale('en'));
+              Get.back();
+            },
+          ),
+          ListTile(
+            title: Text('khmer'.tr),
+            onTap: () {
+              Get.updateLocale(const Locale('km'));
+              Get.back();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F7F9),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
-        title: const Text(
-          'Latest News',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+        title: Text(
+          'latest_news'.tr,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        centerTitle: false,
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Get.isDarkMode ? Icons.light_mode : Icons.dark_mode),
+            onPressed: changeTheme,
+          ),
+          IconButton(
+            icon: const Icon(Icons.language),
+            onPressed: chooseLanguage,
+          ),
+        ],
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
 
         final articles = controller.news.value.articles ?? [];
 
         if (articles.isEmpty) {
-          return const Center(
+          return Center(
             child: Text(
-              'No news found',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
+              'no_news_found'.tr,
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
           );
         }
@@ -52,23 +81,19 @@ class HomeView extends GetView<HomeController> {
             final article = articles[index];
 
             return GestureDetector(
-
               // Add onTap functionality here
               onTap: () {
-                Get.toNamed(
-                  Routes.NEWS_DETAILS,
-                  arguments: article,
-                );
+                Get.toNamed(Routes.NEWS_DETAILS, arguments: article);
               },
 
               child: Container(
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
+                      color: colorScheme.shadow.withValues(alpha: 0.08),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),
@@ -83,7 +108,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                       child: _buildNewsImage(article.image),
                     ),
-              
+
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(
@@ -96,12 +121,12 @@ class HomeView extends GetView<HomeController> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.blue.shade700,
+                                color: colorScheme.primary,
                               ),
                             ),
-              
+
                           const SizedBox(height: 8),
-              
+
                           Text(
                             article.title ?? '',
                             maxLines: 2,
@@ -112,9 +137,9 @@ class HomeView extends GetView<HomeController> {
                               height: 1.3,
                             ),
                           ),
-              
+
                           const SizedBox(height: 8),
-              
+
                           Text(
                             article.description ?? '',
                             maxLines: 3,
@@ -122,12 +147,12 @@ class HomeView extends GetView<HomeController> {
                             style: TextStyle(
                               fontSize: 14,
                               height: 1.5,
-                              color: Colors.grey.shade700,
+                              color: colorScheme.onSurfaceVariant,
                             ),
                           ),
-              
+
                           const SizedBox(height: 14),
-              
+
                           Row(
                             children: [
                               const Icon(
@@ -185,7 +210,7 @@ class HomeView extends GetView<HomeController> {
     return Container(
       width: double.infinity,
       height: 210,
-      color: Colors.grey.shade200,
+      color: Get.theme.colorScheme.surfaceContainerHighest,
       child: const Center(
         child: Icon(
           Icons.image_not_supported_outlined,
