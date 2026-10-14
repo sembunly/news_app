@@ -11,6 +11,7 @@ class AppTranslation extends Translations {
       'no_news_found': 'No news found',
       'news_details': 'News Details',
       'news_details_message': 'News details are working',
+      'no_news_details': 'News details are unavailable',
     },
     'km': {
       'choose_language': 'ជ្រើសរើសភាសា',
@@ -20,6 +21,7 @@ class AppTranslation extends Translations {
       'no_news_found': 'រកមិនឃើញព័ត៌មាន',
       'news_details': 'ព័ត៌មានលម្អិត',
       'news_details_message': 'ទំព័រព័ត៌មានលម្អិតដំណើរការធម្មតា',
+      'no_news_details': 'មិនមានព័ត៌មានលម្អិតទេ',
     },
   };
 }
