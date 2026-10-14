@@ -38,6 +38,7 @@ dependencies:
   dio: ^5.11.1
   get: ^4.7.3
   flutter_native_splash: ^2.4.7
+  connectivity_plus: ^7.3.2
 
 dev_dependencies:
   flutter_test:
