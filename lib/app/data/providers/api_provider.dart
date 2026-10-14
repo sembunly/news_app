@@ -39,7 +39,7 @@ class ApiProvider extends GetxService {
           'q': 'example',
           'lang': 'en',
           'country': 'kh',
-          'max': 20,
+          'max': 50,
           'apikey': kApiKey,
         },
       );
