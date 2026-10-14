@@ -9,14 +9,11 @@ class NewsDetailsView extends GetView<NewsDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NewsDetailsView'),
-        centerTitle: true,
-      ),
-      body: const Center(
+      appBar: AppBar(title: Text('news_details'.tr), centerTitle: true),
+      body: Center(
         child: Text(
-          'NewsDetailsView is working',
-          style: TextStyle(fontSize: 20),
+          'news_details_message'.tr,
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     );
