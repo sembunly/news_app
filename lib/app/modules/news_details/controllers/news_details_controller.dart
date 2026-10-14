@@ -5,7 +5,10 @@ class NewsDetailsController extends GetxController {
   final Rxn<Articles> article = Rxn<Articles>();
 
   void getNewsDetails() {
-    article.value = Get.arguments as Articles?;
+    final arguments = Get.arguments;
+    if (arguments is Articles) {
+      article.value = arguments;
+    }
   }
 
   @override
